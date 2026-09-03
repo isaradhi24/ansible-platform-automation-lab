@@ -1,0 +1,11 @@
+---
+- name: Manage users
+  hosts: local
+  become: yes
+
+  tasks:
+    - name: Create user
+      user:
+        name: devuser 
+        shell: /bin/bash
+        state: present

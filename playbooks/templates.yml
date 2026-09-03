@@ -1,0 +1,10 @@
+---
+- name: Deploy template
+  hosts: local
+  become: yes
+
+  tasks:
+    - name: Copy template
+      template:
+        src: ../templates/nginx.conf.j2
+        dest: /tmp/nginx.conf
