@@ -1,0 +1,17 @@
+---
+- name: Configure baseline packages
+  hosts: docker_nodes
+  gather_facts: false
+
+  vars:
+    common_packages:
+      - curl
+      - git
+
+  tasks:
+    - name: Install baseline packages
+      ansible.builtin.apt:
+        name: "{{ common_packages }}"
+        state: present
+        update_cache: true
+      when: platform_family == "Debian"
