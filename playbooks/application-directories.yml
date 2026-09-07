@@ -1,0 +1,24 @@
+---
+- name: Manage application directories
+  hosts: docker_nodes
+  gather_facts: false
+
+  vars:
+    application_directories:
+      - /opt/ansible-app/config
+      - /opt/ansible-app/logs
+      - /opt/ansible-app/data
+
+  tasks:
+    - name: Create application directories
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        mode: "0755"
+      loop: "{{ application_directories }}"
+      register: directory_results
+
+    - name: Display directory for eatch directory
+      ansible.builtin.debug:
+        msg: "Directory {{ item.item }} created: {{ item.changed }}"
+      loop: "{{ directory_results.results }}"
