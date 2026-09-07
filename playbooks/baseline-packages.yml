@@ -3,11 +3,6 @@
   hosts: docker_nodes
   gather_facts: false
 
-  vars:
-    common_packages:
-      - curl
-      - git
-
   tasks:
     - name: Install baseline packages
       ansible.builtin.apt:
