@@ -1,0 +1,35 @@
+---
+- name: Practice using loops in Ansible 
+  hosts: ansible_nodes 
+  gather_facts: false
+
+  vars:
+    required_packages:
+      - git
+      - curl
+      - vim
+      - unzip 
+
+    user_accounts: 
+      - name: appuser 
+        group: developers 
+  
+      - name: deployuser 
+        group: devops 
+  
+  tasks:
+    - name: Display required packages
+      debug:
+        msg: "Package to check: {{ item }}" 
+      loop: "{{ required_packages }}"
+
+#### Loop over structured Data ###############
+
+    - name: Display user account information
+      debug: 
+        msg: "User={{ item.name }}, Group={{ item.group }}"
+      loop: "{{ user_accounts }}" 
+    
+
+
+

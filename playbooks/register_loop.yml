@@ -1,0 +1,27 @@
+--- 
+- name: Practice register with loops 
+  hosts: ansible_nodes
+  gather_facts: false 
+
+  vars: 
+    commands_to_check:
+      - "whoami"
+      - "hostname"
+      - "date"
+      - "uname -r"
+
+  tasks:
+    - name: Run multiplecommands and register output
+      command: "{{ item }}"
+      loop: "{{ commands_to_check }}"
+      register: command_output
+      changed_when: false
+
+    - name: Display comamnd results 
+      debug:
+        msg: "{{ item.item }} => {{ item.stdout }}"
+      loop: "{{ command_output.results }}"
+      loop_control:
+        label: "{{ item.item }}"
+
+      

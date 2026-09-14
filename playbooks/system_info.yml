@@ -1,0 +1,24 @@
+---
+- name: Collect system information
+  hosts: ansible_nodes
+  gather_facts: true
+
+  vars:
+    supported_os_family: "Debian"
+
+  tasks:
+    - name: Check if the OS family is supported
+      debug:
+        msg:
+          - "==============================="
+          - "Supported OS family detected: {{ ansible_os_family }}"
+          - "==============================="
+      when: ansible_os_family == supported_os_family
+
+    - name: Display OS information
+      debug:
+        msg:
+          - "Host: {{ inventory_hostname }}"
+          - "Distribution: {{ ansible_distribution }}"
+          - "Version: {{ ansible_distribution_version }}"
+          - "Kernel: {{ ansible_kernel }}"
